@@ -34,12 +34,14 @@ else:
 MEDIA_URL = "/a/%d/" % MEDIA_VERSION
 
 TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-            'django.template.loaders.app_directories.Loader',
-            'django.template.loaders.filesystem.Loader',
-        ),
-    ),
+    'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.filesystem.Loader',
 )
+
+if IS_PROD:
+    TEMPLATE_LOADERS = (
+        ('django.template.loaders.cached.Loader', TEMPLATE_LOADERS),
+    )
 
 ROOT_PATH = os.path.dirname(__file__)
 TEMPLATE_DIRS = (
