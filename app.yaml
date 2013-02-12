@@ -22,6 +22,9 @@ libraries:
 - name: django
   version: "1.4"
 
+error_handlers:
+- file: assets/error.html
+
 skip_files: |
  ^(.*/)?(
  (\..*)|
