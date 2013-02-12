@@ -2,3 +2,6 @@
 
 .project
 .pydevproject
+
+secrets.py
+testdata

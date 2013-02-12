@@ -1,0 +1,29 @@
+application: pic-repo
+version: test
+runtime: python27
+api_version: 1
+threadsafe: true
+
+inbound_services:
+- warmup
+
+default_expiration: 0
+
+handlers:
+- url: /a/\d+/(.+)
+  static_files: assets/\1
+  upload: assets/.+
+  expiration: 28d
+
+- url: /.*
+  script: main.app
+
+libraries:
+- name: django
+  version: "1.4"
+
+skip_files: |
+ ^(.*/)?(
+ (\..*)|
+ (.*\.(md|pyc))
+ )$
