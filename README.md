@@ -1,4 +1,1 @@
-repo
-====
-
-REgistry of POlaroid pictures
+An app to provide a register of stamped Fujifilm Instax “business cards”. I'm planning to just hack this together quickly and be done with it…
