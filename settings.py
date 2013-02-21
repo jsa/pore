@@ -54,6 +54,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.media',
     'repo.context_processors.base_url',
     'repo.context_processors.settings',
 )
