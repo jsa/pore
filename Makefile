@@ -23,8 +23,9 @@ fn-grep-imports = $(foreach a,$(1),$(addprefix $(dir $(a)),$(shell $(SED) -n 's/
 ### source file listings (when order is important; can use `find' otherwise)
 
 export LESS_SOURCES := ui/$(PROJECT).less
-export JS_SOURCES := ui/$(PROJECT).js
-
+export JS_SOURCES := \
+	ui/$(PROJECT).js \
+	$(BOOTSTRAP)/js/bootstrap-collapse.js
 
 ### main targets
 
@@ -51,13 +52,16 @@ $(UGLIFY):
 $(CSSO):
 	@$(GIT) clone --depth 1 https://github.com/css/csso $@
 
-css: $(BUILD_DIR)/css/$(PROJECT).css
+css: $(BUILD_DIR)/css/$(PROJECT).css $(BUILD_DIR)/css/$(PROJECT)-responsive.css
 
-css-min: $(BUILD_DIR)/css/$(PROJECT).min.css
+css-min: $(BUILD_DIR)/css/$(PROJECT).min.css $(BUILD_DIR)/css/$(PROJECT)-responsive.min.css
 
 # release css compilation rule
 $(BUILD_DIR)/css/$(PROJECT).css: $(LESS_SOURCES:.less=.css) $(call fn-grep-imports,$(LESS_SOURCES))
 	@cat $(LESS_SOURCES:.less=.css) > $@
+
+$(BUILD_DIR)/css/$(PROJECT)-responsive.css: ui/$(PROJECT)-responsive.css $(call fn-grep-imports,$(ui/$(PROJECT)-responsive.less))
+	@cp ui/$(PROJECT)-responsive.css $@
 
 js: $(BUILD_DIR)/js/$(PROJECT).js
 

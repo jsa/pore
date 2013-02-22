@@ -4,12 +4,8 @@
 
 @import "../tmp/bootstrap/less/variables.less";
 
-
 // Bootstrap variables customizations
-@monoFontFamily: "Courier New", Monaco, Menlo, Consolas, monospace;
-@baseFontFamily: @monoFontFamily;
-@altFontFamily: @sansFontFamily;
-
+@import "variables.less";
 
 @import "../tmp/bootstrap/less/mixins.less";
 @import "../tmp/bootstrap/less/reset.less";
@@ -51,7 +47,7 @@
 
 // Components: Misc
 @import "../tmp/bootstrap/less/thumbnails.less";
-// @import "../tmp/bootstrap/less/media.less";
+@import "../tmp/bootstrap/less/media.less";
 @import "../tmp/bootstrap/less/labels-badges.less";
 // @import "../tmp/bootstrap/less/progress-bars.less";
 // @import "../tmp/bootstrap/less/accordion.less";
@@ -60,5 +56,7 @@
 
 // Utility classes
 @import "../tmp/bootstrap/less/utilities.less"; // Has to be last to override when necessary
+
+@import "patch-bootstrap.less";
 
 @import "base.less";

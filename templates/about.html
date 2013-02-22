@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}About | {{ block.super }}{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="hero-unit">
+				<h1>Hi,</h1>
+				<p>
+					This is a little gallery I put up for those instant photos,
+					which you may be lucky to already have one. :)
+				</p>
+				<p>
+					Feel free and <a href="{% url upload %}">upload</a> yours
+					to the <a href="{% url gallery %}">gallery</a>! If you want,
+					you can place the photo on a map, and also write something
+					little along with it.
+				</p>
+				<p>&nbsp;</p>
+				<p>—Janne Savukoski</p>
+				<p>&nbsp;</p>
+				<p>
+					PS. The effort will be much appreciated! And I've even tried
+					to make it as easy as possible.
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
