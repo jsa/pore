@@ -1,7 +1,10 @@
+from datetime import datetime
 import logging
 import re
 
 from google.appengine.api import blobstore
+from google.appengine.api.datastore_errors import BadValueError
+from google.appengine.api.datastore_types import GeoPt
 from google.appengine.ext.blobstore.blobstore import BlobInfo
 
 from django import http
@@ -11,6 +14,9 @@ from django.utils.http import urlencode
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_GET
 import json
+
+from repo.gallery.models import PhotoEntry
+from repo.gallery.views import single
 
 
 @require_GET
@@ -28,5 +34,42 @@ def blobstore_callback(request):
         return render(request, "upload.html", {'err': True})
 
     logging.info("Received file: %r" % ((info.filename, info.content_type, info.size, info.key()),))
-    from repo.gallery.views import single
-    return http.HttpResponseRedirect("%s?%s" % (reverse(single, args=[1]), urlencode({'ty': ''})))
+
+    extra = {}
+    for f in ('datestamp', 'location'):
+        v = request.POST.get(f)
+        if v:
+            extra[f] = v
+
+    notes = request.POST.get('notes')
+    if notes:
+        extra['public_note'] = notes
+
+    if request.POST.get('gmap-location'):
+        latlng = request.POST.get('latlng')
+        if latlng:
+            try:
+                extra['latlng'] = GeoPt(latlng)
+            except BadValueError, e:
+                logging.warning(e, exc_info=1)
+
+    msg = request.POST.get('message')
+    if msg:
+        msg = {
+            'created': datetime.now().isoformat(),
+            'message': msg,
+        }
+        email = request.POST.get('email')
+        if email:
+            msg['email'] = email
+        extra['private_messages'] = [msg]
+
+    entry = PhotoEntry(
+                photos=[info.key()],
+                tags=['public'],
+                **extra)
+    entry.put()
+    logging.debug("Created %r" % entry.key)
+
+    return http.HttpResponseRedirect("%s?%s" % (reverse(single, args=[entry.key.id()]),
+                                                urlencode({'ty': ''})))

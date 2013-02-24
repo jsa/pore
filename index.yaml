@@ -1,0 +1,12 @@
+indexes:
+
+- kind: GalleryEntry
+  properties:
+  - name: tags
+  - name: created
+
+- kind: GalleryEntry
+  properties:
+  - name: tags
+  - name: created
+    direction: desc

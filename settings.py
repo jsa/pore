@@ -65,7 +65,7 @@ ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
     'repo.gallery',
-    'repo.photo',
+    'repo.up',
 )
 
 

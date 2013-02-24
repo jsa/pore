@@ -3,11 +3,18 @@
 {% block title %}Gallery | {{ block.super }}{% endblock %}
 
 {% block body %}
-{% if thankyou %}
-<div class="alert alert-success">
-	Photo received and added to <a href="{% url gallery.browse %}">gallery</a>.
-	Thank you!
+<div class="container-fluid">
+	{% if thankyou %}
+	<div class="row-fluid">
+		<div class="alert alert-success">
+			Photo received and added to <a href="{% url gallery.browse %}">gallery</a>.
+			Thank you!
+		</div>
+	</div>
+	{% endif %}
+
+	<div class="row-fluid">
+		<p>Photo page.</p>
+	</div>
 </div>
-{% endif %}
-Photo page.
 {% endblock %}

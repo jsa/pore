@@ -1,5 +1,5 @@
 body {
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   font-weight: bold;
 
   > .navbar .brand {
@@ -17,4 +17,28 @@ input[type="text"] {
   letter-spacing: 2px;
   font-weight: bold;
   border: none;
+}
+
+.thumbnails {
+  font-size: 12px;
+
+  blockquote {
+    font-style: italic;
+    margin-top: @baseFontSize;
+    margin-bottom: @baseFontSize;
+  }
+
+  p {
+    text-align: right;
+    clear: both;
+  }
+
+  blockquote, p {
+    margin-right: 2 * @baseFontSize;
+  }
+
+  .thumbnail {
+    border: none;
+    box-shadow: none;
+  }
 }

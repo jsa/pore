@@ -10,9 +10,9 @@ from django.conf.urls.defaults import handler404, handler500
 
 
 urlpatterns = patterns('',
-    (r"^i/(\d+)(-.+)?.jpg", gallery.photo),
+    url(r"^i/(\d+)-(\d+)(-.+)?.jpg", gallery.photo, name="entry.photo"),
     url(r"^$", gallery.browse, name="gallery.browse"),
-    url(r"^(\d+)/$", gallery.single, name="gallery.single"),
+    url(r"^(\d+)/$", gallery.single, name="gallery.entry"),
     url(r"^about/$", direct_to_template, {'template': "about.html"}, name="about"),
     url(r"^upload/$", direct_to_template, {'template': "upload.html"}, name="upload"),
     url(r"^upload-url/$", up.get_upload_url, name="upload.url"),
