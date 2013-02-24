@@ -80,13 +80,17 @@ def browse(request):
     else:
         page, next_cursor, more = qry.order(-GalleryEntry.created) \
                                      .fetch_page(20)
+        paging = {'is_first': True}
+        if more:
+            paging.update({
+                'next': next_cursor.urlsafe(),
+                'is_last': False,
+            })
+        else:
+            paging['is_last'] = True
         context.update({
             'batch': page,
-            'paging': {
-                'next': next_cursor.urlsafe(),
-                'is_first': True,
-                'is_last': not more,
-            },
+            'paging': paging,
         })
 
     return context
@@ -94,5 +98,10 @@ def browse(request):
 @require_GET
 @render_to("photo.html")
 def single(request, entry_id):
+    ctx = {}
+    ref = request.META.get('HTTP_REFERER')
+    if ref:
+        ctx['back'] = ref
     if 'ty' in request.GET:
-        return {'thankyou': True}
+        ctx['thankyou'] = True
+    return ctx

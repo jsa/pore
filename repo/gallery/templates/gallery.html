@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container-fluid">
-	<ul class="thumbnails">
+	<ul class="nobo thumbnails">
 		{% for entry in batch %}
 		<li class="span3" style="min-width: 80px; max-width: 300px;">
 			<div class="thumbnail">
@@ -25,7 +25,7 @@
 				{{ entry.location }}
 				{% else %}
 				{# other one is empty #}
-				{{ entry.datestamp }}{{ entry.location }}
+				{{ entry.datestamp|default:entry.location|default:"" }}
 				{% endif %}
 			</p>
 			{% endif %}

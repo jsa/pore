@@ -5,24 +5,21 @@
 {% block body %}
 <div class="container-fluid">
 	<div class="row-fluid">
-		<div class="span12">
-			<div class="hero-unit">
-				<h1>Hi,</h1>
-				<p>&nbsp;</p>
-				<p>
-					This is a little gallery I put up for those instant photos,
-					which you may be lucky to already have one. :)
-				</p>
-				<p>
-					You're heartily welcome to <a href="{% url upload %}">upload</a>
-					yours — the effort will be much appreciated! If you
-					want, you can place the photo on a map, and also write a
-					little note to go along with it; but all this is strictly
-					optional.
-				</p>
-				<p>&nbsp;</p>
-				<p>—Janne Savukoski</p>
-			</div>
+		<div class="hero-unit" style="max-width: 700px;">
+			<h1>Hi,</h1>
+			<p>&nbsp;</p>
+			<p>
+				This is a little gallery I put up for those instant photos,
+				which you may be lucky to already have one or a couple. :)
+			</p>
+			<p>
+				You're heartily welcome to <a href="{% url upload %}">upload</a>
+				yours — the effort will be much appreciated! You can also
+				specify a location for the photo, and write a little note
+				to go along with it.
+			</p>
+			<p>&nbsp;</p>
+			<p>—Janne Savukoski</p>
 		</div>
 	</div>
 </div>
