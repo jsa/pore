@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.conf import settings as django_settings
 
 
@@ -19,3 +21,6 @@ def base_url(request):
 def settings(request):
     """Makes also all the secrets available in templates, be careful."""
     return {'settings': django_settings}
+
+def now(request):
+    return {'now': datetime.now()}

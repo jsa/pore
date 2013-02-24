@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Gallery | {{ block.super }}{% endblock %}
+
+{% block body %}
+{% if thankyou %}
+<div class="alert alert-success">
+	Photo received and added to <a href="{% url gallery.browse %}">gallery</a>.
+	Thank you!
+</div>
+{% endif %}
+Photo page.
+{% endblock %}

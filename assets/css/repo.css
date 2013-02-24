@@ -4205,6 +4205,12 @@ body > .navbar .brand {
   line-height: 10px;
   text-align: right;
 }
-body .hero-unit {
+.hero-unit {
   min-width: 100px;
+}
+textarea,
+input[type="text"] {
+  letter-spacing: 2px;
+  font-weight: bold;
+  border: none;
 }

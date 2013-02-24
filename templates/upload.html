@@ -2,6 +2,173 @@
 
 {% block title %}Upload | {{ block.super }}{% endblock %}
 
-{% block body %}
+{% block head %}
+{{ block.super }}
+<style type="text/css">
+#gmap-canvas {
+  margin: 20px;
+  width: 100%;
+  max-width: 400px;
+  height: 400px;
+  display: none;
+}
+</style>
+{% endblock %}
 
+{% block body %}
+<div class="container-fluid">
+	{% if err %}
+	<div class="row-fluid">
+		<div class="alert alert-error span12">
+			I'm terribly sorry, but the photo upload failed for some reason.
+			Please retry.
+		</div>
+	</div>
+	{% endif %}
+	<div class="row-fluid">
+		<div class="span12">
+			<form action="#" method="post" enctype="multipart/form-data">
+				<h1>Upload photo to gallery</h1>
+				<span class="help-block">Super &lt;3</span>
+				<div class="control-group well">
+					<h4><table><tr><td>3.</td><td>Select photo</td></tr></table></h4>
+					<div class="controls">
+						<input type="file" name="file" accept="image/*" capture="camera">
+					</div>
+				</div>
+				<div class="control-group well">
+					<h4>2. Additional <em>public</em> information (all optional)</h4>
+					<span class="help-block">
+						These will be shown in gallery alongside the photo.
+					</span>
+					<div class="controls">
+						<input type="text" name="datestamp" value="{{ request.REQUEST.datestamp }}" placeholder="Date, eg. “{{ now|date:"d M Y"|upper }}”" style="width: 240px;">
+						<input type="text" name="location" value="{{ request.REQUEST.location }}" placeholder="Location, eg. “Berlin, Germany”" style="width: 320px;">
+					</div>
+					<div class="controls">
+						<label class="checkbox">
+							<input type="checkbox" name="gmap-location" value="true"{% if request.REQUEST.latlng %} checked="checked"{% endif %}>
+							Include map location
+						</label>
+						<div id="gmap-canvas"></div>
+						<input type="hidden" name="latlng" value="{{ request.REQUEST.latlng }}">
+					</div>
+					<div class="controls">
+						<textarea rows="5" cols="80" name="notes" placeholder="Notes, message, or just something utterly random" class="span10">{{ request.REQUEST.notes }}</textarea>
+					</div>
+				</div>
+				<div class="control-group well">
+					<h4>1. Additional <em>private</em> information (all optional)</h4>
+					<span class="help-block">
+						Here you can attach a private message to the photo. This
+						will be seen only by me.
+					</span>
+					<div class="controls">
+						<textarea rows="5" cols="80" name="message" placeholder="Message" class="span10">{{ request.REQUEST.message }}</textarea>
+						<input type="text" name="email" value="{{ request.REQUEST.email }}" placeholder="Your email address" class="span4">
+					</div>
+				</div>
+				<div class="form-actions">
+					<h4>0. <button type="submit" class="btn btn-primary btn-large">Upload</button></h4>
+					<span class="help-block">
+						Relax: You will be able to update information after upload
+						— or remove the whole photo altogether — if such a need
+						should arise.
+					</span>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script type="text/javascript">
+/*global $, document, google, navigator, window */
+var gmap = null;
+
+function initializeGMap() {
+	"use strict";
+	/*jshint laxcomma:true */
+	gmap = new google.maps.Map(document.getElementById("gmap-canvas"), {
+			{% if request.REQUEST.latlng %}
+			'center': new google.maps.LatLng({{ request.REQUEST.latlng }}),
+			'zoom': 8,
+			{% else %}
+			'center': new google.maps.LatLng(11.673755, 102.219543),
+			'zoom': 1,
+			{% endif %}
+			'mapTypeId': google.maps.MapTypeId.HYBRID,
+			'panControl': false
+		});
+
+	var marker = new google.maps.Marker({
+			'position': gmap.getCenter(),
+			'map': gmap,
+			'clickable': false
+		});
+
+	google.maps.event.addListener(gmap, 'center_changed', function () {
+		marker.setPosition(gmap.getCenter());
+	});
+
+	{% if not request.REQUEST.latlng %}
+	// Callbacks didn't seem to work on Firefox, so just adjusting map in case
+	// Firefox sees it worthwile to invoke a callback.
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(pos) {
+			gmap.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+			gmap.setZoom(8);
+		});
+	}
+	{% endif %}
+}
+
+(function () {
+	"use strict";
+	/*jshint laxcomma:true */
+	var $canvas = $('#gmap-canvas');
+
+	$('input[name="gmap-location"]').change(function () {
+		if ($(this).is(':checked')) {
+			$canvas.css('display', 'block');
+			if (!gmap) {
+				var script = document.createElement("script");
+				script.type = "text/javascript";
+				script.src = "http://maps.googleapis.com/maps/api/js?key={{ settings.GOOGLE_API_KEY }}&sensor=true&callback=initializeGMap";
+				document.body.appendChild(script);
+			}
+		} else {
+			$canvas.css('display', 'none');
+		}
+	}).change();
+
+	$('form').submit(function () {
+		var postUrl = null;
+		function fetchUrl() {
+			$.ajax('{% url upload.url %}', {
+				'async': false,
+				'dataType': 'json',
+				'success': function (data) {
+					postUrl = data.url;
+				},
+				'error': fetchUrl
+			});
+		}
+		fetchUrl();
+		if (!postUrl) {
+			window.alert(
+				"I'm unbelievably sorry, but there seems to be some problems " +
+				"with the photo uploading currently. I recommend retrying again later.");
+			return false;
+		}
+		this.action = postUrl;
+		if (gmap) {
+			$('input[name="latlng"]').val(gmap.getCenter().toUrlValue());
+		}
+		return true;
+	});
+}());
+</script>
 {% endblock %}
