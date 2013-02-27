@@ -38,14 +38,25 @@
 					</div>
 				</div>
 				<div class="control-group well">
-					<legend>Public information</legend>
+					<legend>Public information (optional)</legend>
 					<span class="help-block">
 						These will be shown in gallery alongside the photo.
-						(Note: All the fields are optional.)
 					</span>
 					<div class="controls">
-						<input type="text" name="datestamp" value="{{ request.REQUEST.datestamp }}" placeholder="Date, eg. “{{ now|date:"d M Y"|upper }}”" style="width: 240px;">
-						<input type="text" name="location" value="{{ request.REQUEST.location }}" placeholder="Location, eg. “Berlin, Germany”" style="width: 320px;">
+						<label for="input-datestamp">Date</label>
+						<input type="text"
+						       name="datestamp"
+						       id="input-datestamp"
+						       value="{{ request.REQUEST.datestamp }}"
+						       placeholder="“{{ now|date:"d M Y"|upper }}”"
+						       class="input-medium">
+						<label for="input-location">Location</label>
+						<input type="text"
+						       name="location"
+						       id="input-location"
+						       value="{{ request.REQUEST.location }}"
+						       placeholder="“Berlin, Germany”"
+						       class="input-large">
 					</div>
 					<div class="controls">
 						<label class="checkbox">
@@ -55,12 +66,13 @@
 						<div id="gmap-canvas"></div>
 						<input type="hidden" name="latlng" value="{{ request.REQUEST.latlng }}">
 					</div>
+					<hr />
 					<div class="controls">
 						<textarea rows="5" cols="80" name="notes" placeholder="Notes, message, or just something utterly random" class="span12">{{ request.REQUEST.notes }}</textarea>
 					</div>
 				</div>
 				<div class="control-group well">
-					<legend>Private information</legend>
+					<legend>Private information (optional)</legend>
 					<span class="help-block">
 						Here you can attach a private message to the photo. This
 						will be seen only by me.
