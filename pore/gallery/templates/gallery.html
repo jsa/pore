@@ -36,17 +36,11 @@
 			{% if entry.public_note %}
 			<blockquote class="pull-right">{{ entry.public_note|linebreaksbr }}</blockquote>
 			{% endif %}
-			{% if entry.datestamp or entry.location %}
-			<p>
-				{% if entry.datestamp and entry.location %}
-				{{ entry.datestamp }}
-				<br />
-				{{ entry.location }}
-				{% else %}
-				{# other one is empty #}
-				{{ entry.datestamp|default:entry.location|default:"" }}
-				{% endif %}
-			</p>
+			{% if entry.datestamp %}
+			<p>{{ entry.datestamp }}</p>
+			{% endif %}
+			{% if entry.location %}
+			<p>{{ entry.location }}</p>
 			{% endif %}
 			{% if entry.latlng %}
 			<div class="map">
@@ -54,6 +48,10 @@
 				<div class="gmap-canvas"></div>
 			</div>
 			{% endif %}
+		</li>
+		{% empty %}
+		<li class="span3" style="min-width: 80px; max-width: 300px;">
+			<div><em>No entries.</em></div>
 		</li>
 		{% endfor %}
 	</ul>

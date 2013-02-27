@@ -4225,6 +4225,10 @@ input[type="text"] {
 .thumbnails p {
   text-align: right;
   clear: both;
+  margin-bottom: 0px;
+}
+.thumbnails p:last-child {
+  margin-bottom: 10px;
 }
 .thumbnails blockquote,
 .thumbnails p {
