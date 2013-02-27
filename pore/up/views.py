@@ -15,8 +15,8 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_GET
 import json
 
-from repo.gallery.models import PhotoEntry
-from repo.gallery.views import single
+from pore.gallery.models import PhotoEntry
+from pore.gallery.views import single
 
 
 @require_GET

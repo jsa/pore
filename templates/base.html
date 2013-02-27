@@ -5,8 +5,8 @@
 		<title>{% block title %}Polaroid Registry{% endblock %}</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="{{ MEDIA_URL }}css/repo{% if settings.IS_PROD %}.min{% endif %}.css" rel="stylesheet" type="text/css">
-		<link href="{{ MEDIA_URL }}css/repo-responsive{% if settings.IS_PROD %}.min{% endif %}.css" rel="stylesheet" type="text/css">
+		<link href="{{ MEDIA_URL }}css/pore{% if settings.IS_PROD %}.min{% endif %}.css" rel="stylesheet" type="text/css">
+		<link href="{{ MEDIA_URL }}css/pore-responsive{% if settings.IS_PROD %}.min{% endif %}.css" rel="stylesheet" type="text/css">
 		{% endblock %}
 	</head>
 
@@ -30,7 +30,7 @@
 		{% block body %}{% endblock %}
 		{% block js %}
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
-		<script src="{{ MEDIA_URL }}js/repo{% if settings.IS_PROD %}.min{% endif %}.js" type="text/javascript"></script>
+		<script src="{{ MEDIA_URL }}js/pore{% if settings.IS_PROD %}.min{% endif %}.js" type="text/javascript"></script>
 		{% endblock %}
 	</body>
 </html>

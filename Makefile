@@ -1,4 +1,4 @@
-export PROJECT := repo
+export PROJECT := pore
 
 #### target directories
 export BUILD_DIR := assets
@@ -79,6 +79,7 @@ clean:
 
 .INTERMEDIATE: \
 	$(LESS_SOURCES:.less=.css) \
+	ui/$(PROJECT)-responsive.css \
 	$(BOOTSTRAP)/less/bootstrap.css
 
 .PRECIOUS: $(BUILD_DIR)/$(PROJECT).css

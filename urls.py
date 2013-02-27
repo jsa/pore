@@ -2,8 +2,8 @@ from django import http
 from django.conf.urls import patterns, url
 from django.views.generic.simple import direct_to_template
 
-from repo.gallery import views as gallery
-from repo.up import views as up
+from pore.gallery import views as gallery
+from pore.up import views as up
 
 # default error handlers
 from django.conf.urls.defaults import handler404, handler500

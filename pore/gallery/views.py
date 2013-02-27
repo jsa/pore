@@ -10,7 +10,7 @@ from django import http
 from django.views.decorators.cache import cache_control
 from django.views.decorators.http import require_GET
 
-from repo.util import render_to
+from pore.util import render_to
 
 from .models import GalleryEntry, PhotoEntry
 

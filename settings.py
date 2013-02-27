@@ -9,7 +9,7 @@ except AttributeError:
     appid = None
 
 IS_PROD = not os.environ.get('SERVER_SOFTWARE', "").startswith("Development/") \
-          and appid == 'pic-repo'
+          and appid == 'jsa-pore'
 
 DEBUG = TEMPLATE_DEBUG = not IS_PROD
 
@@ -61,16 +61,16 @@ MIDDLEWARE_CLASSES = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.request',
-    'repo.context_processors.base_url',
-    'repo.context_processors.now',
-    'repo.context_processors.settings',
+    'pore.context_processors.base_url',
+    'pore.context_processors.now',
+    'pore.context_processors.settings',
 )
 
 ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
-    'repo.gallery',
-    'repo.up',
+    'pore.gallery',
+    'pore.up',
 )
 
 
