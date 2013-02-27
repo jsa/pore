@@ -69,6 +69,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
+    'pore', # for templatetags
     'pore.gallery',
     'pore.up',
 )

@@ -2,6 +2,26 @@
 
 {% block title %}Gallery | {{ block.super }}{% endblock %}
 
+{% block head %}
+{{ block.super }}
+<style type="text/css">
+.map { width: 100%; }
+.map > * { float: right; }
+
+.gmap-canvas {
+  width: 100%;
+  margin-top: 20px;
+  max-width: 400px;
+  height: 300px;
+  display: none;
+}
+
+.show-gmap .gmap-canvas {
+  display: block;
+}
+</style>
+{% endblock %}
+
 {% block body %}
 <div class="container-fluid">
 	<ul class="nobo thumbnails">
@@ -9,13 +29,11 @@
 		<li class="span3" style="min-width: 80px; max-width: 300px;">
 			<div class="thumbnail">
 				<a href="{% url gallery.entry entry.key.id %}">
-					<img src="{% url entry.photo entry.key.id,0,"-600" %}" class="img-rounded">
+					<img src="{% url entry.photo entry.key.id,0,"-600" %}">
 				</a>
 			</div>
 			{% if entry.public_note %}
-			<blockquote class="pull-right">
-				{{ entry.public_note }}
-			</blockquote>
+			<blockquote class="pull-right">{{ entry.public_note }}</blockquote>
 			{% endif %}
 			{% if entry.datestamp or entry.location %}
 			<p>
@@ -30,9 +48,10 @@
 			</p>
 			{% endif %}
 			{% if entry.latlng %}
-			<p>
-				<a href="#" class="btn" data-ll="{{ entry.latlng }}">show map</a>
-			</p>
+			<div class="map">
+				<button class="btn" data-ll="{{ entry.latlng }}">show map</button>
+				<div class="gmap-canvas"></div>
+			</div>
 			{% endif %}
 		</li>
 		{% endfor %}
@@ -52,4 +71,12 @@
 		</ul>
 	</div>
 </div>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script src="https://maps.googleapis.com/maps/api/js?key={{ settings.GOOGLE_API_KEY }}&sensor=true" type="text/javascript"></script>
+<script type="text/javascript">
+$(pore.gallery.init);
+</script>
 {% endblock %}

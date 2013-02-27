@@ -66,7 +66,7 @@ $(BUILD_DIR)/css/$(PROJECT)-responsive.css: ui/$(PROJECT)-responsive.css $(call 
 js: $(BUILD_DIR)/js/$(PROJECT).js
 
 # release js compilation rule
-$(BUILD_DIR)/js/$(PROJECT).js: $(JS_SOURCES)
+$(BUILD_DIR)/js/$(PROJECT).js: $(JS_SOURCES) $(shell find $(PROJECT) -name '*.js')
 	@cat $^ > $@
 
 js-min: $(BUILD_DIR)/js/$(PROJECT).min.js
