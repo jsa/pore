@@ -11,6 +11,11 @@ except AttributeError:
 IS_PROD = not os.environ.get('SERVER_SOFTWARE', "").startswith("Development/") \
           and appid == 'jsa-pore'
 
+if IS_PROD:
+    PRIMARY_HOST = "pore.savukoski.name"
+else:
+    PRIMARY_HOST = os.environ.get('HTTP_HOST', 'localhost:8080')
+
 DEBUG = TEMPLATE_DEBUG = not IS_PROD
 
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

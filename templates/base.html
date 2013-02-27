@@ -1,10 +1,14 @@
 {% load pore_tags %}<!DOCTYPE html>
 <html lang="en">
-	<head>
+	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object#">
 		{% block head %}
 		<title>{% block title %}Polaroid Registry{% endblock %}</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{% block opengraph %}
+		<meta property="og:site_name" content="Polaroid Registry" />
+		<meta property="fb:app_id" content="{{ settings.FB.APP_ID }}" />
+		{% endblock %}
 		<link href="{{ MEDIA_URL }}css/pore{% if settings.IS_PROD %}.min{% endif %}.css" rel="stylesheet" type="text/css">
 		<link href="{{ MEDIA_URL }}css/pore-responsive{% if settings.IS_PROD %}.min{% endif %}.css" rel="stylesheet" type="text/css">
 		{% endblock %}
