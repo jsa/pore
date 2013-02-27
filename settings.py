@@ -56,6 +56,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'gaelib.auth.middleware.AuthenticationMiddleware',
+    'pore.middleware.ReturnURLMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -63,6 +64,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'pore.context_processors.base_url',
     'pore.context_processors.now',
+    'pore.context_processors.return_url',
     'pore.context_processors.settings',
 )
 

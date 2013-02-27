@@ -2,6 +2,8 @@ from datetime import datetime
 
 from django.conf import settings as django_settings
 
+from .middleware import _parse_referer
+
 
 def base_url(request):
     secure = request.META.get('HTTPS') == "on"
@@ -17,6 +19,12 @@ def base_url(request):
                         % ("https" if secure else "http",
                            request.META.get('SERVER_NAME', "localhost"),
                            port)}
+
+def return_url(request):
+    ref = request.COOKIES.get('return') or _parse_referer(request)
+    if ref:
+        return {'return_url': ref}
+    return {}
 
 def settings(request):
     """Makes also all the secrets available in templates, be careful."""
