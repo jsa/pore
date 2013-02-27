@@ -4228,7 +4228,8 @@ input[type="text"] {
 }
 .thumbnails blockquote,
 .thumbnails p {
-  margin-right: 28px;
+  margin-right: 20px;
+  text-align: right;
 }
 .thumbnails.nobo .thumbnail {
   border: none;

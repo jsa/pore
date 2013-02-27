@@ -24,8 +24,9 @@ fn-grep-imports = $(foreach a,$(1),$(addprefix $(dir $(a)),$(shell $(SED) -n 's/
 
 export LESS_SOURCES := ui/$(PROJECT).less
 export JS_SOURCES := \
-	ui/$(PROJECT).js \
-	$(BOOTSTRAP)/js/bootstrap-collapse.js
+	lib/jquery.form.js \
+	$(BOOTSTRAP)/js/bootstrap-collapse.js \
+	ui/$(PROJECT).js
 
 ### main targets
 

@@ -10,9 +10,10 @@ inbound_services:
 default_expiration: 0
 
 handlers:
-- url: /a/\d+/(.+)
+- url: /a/\d+/(.+/.+)
+  # must not overlap with error_handlers
   static_files: assets/\1
-  upload: assets/.+
+  upload: assets/.+/.+
   expiration: 28d
 
 - url: /.*
@@ -27,6 +28,9 @@ error_handlers:
 
 skip_files: |
  ^(.*/)?(
- (\..*)|
- (.*\.(md|pyc))
+ (\..*)
+ |(.*\.(md|pyc))
+ |((pore|ui)/.*\.(js|less))
+ |(testdata)
+ |(tmp)
  )$

@@ -7,6 +7,7 @@
 <style type="text/css">
 .map { width: 100%; }
 .map > * { float: right; }
+.map .btn { margin-right: 20px; }
 
 .gmap-canvas {
   width: 100%;
@@ -33,7 +34,7 @@
 				</a>
 			</div>
 			{% if entry.public_note %}
-			<blockquote class="pull-right">{{ entry.public_note }}</blockquote>
+			<blockquote class="pull-right">{{ entry.public_note|linebreaksbr }}</blockquote>
 			{% endif %}
 			{% if entry.datestamp or entry.location %}
 			<p>

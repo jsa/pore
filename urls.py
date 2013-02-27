@@ -16,6 +16,6 @@ urlpatterns = patterns('',
     url(r"^about/$", direct_to_template, {'template': "about.html"}, name="about"),
     url(r"^upload/$", direct_to_template, {'template': "upload.html"}, name="upload"),
     (r"^upload-url/$", up.get_upload_url),
-    (r"^_ah/blobstore-callback/$", up.blobstore_callback),
+    (r"^_ah/blobstore-callback/(\d+)/$", up.blobstore_callback),
     (r"^_ah/warmup/$", lambda *a, **kw: http.HttpResponse()),
 )

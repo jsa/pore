@@ -99,11 +99,16 @@ function initUpload() {
 	}).change();
 
 	$('form').submit(function () {
-		var postUrl = null;
+		var $form = $(this)
+		,   postUrl = null;
 		function fetchUrl() {
 			$.ajax('/upload-url/', {
+				'type': 'POST',
 				'async': false,
 				'dataType': 'json',
+				// had to change to submit data already here as unicode values
+				// didn't quite survive the blobstore process
+				'data': $form.find(':input:not([type="file"])').fieldSerialize(),
 				'success': function (data) {
 					postUrl = data.url;
 				},
