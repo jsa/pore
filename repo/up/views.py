@@ -71,5 +71,8 @@ def blobstore_callback(request):
     entry.put()
     logging.debug("Created %r" % entry.key)
 
+    # authorize entry updating
+    request.session['ups'] = request.session.get('ups', []) + [entry.key.id()]
+
     return http.HttpResponseRedirect("%s?%s" % (reverse(single, args=[entry.key.id()]),
                                                 urlencode({'ty': ''})))

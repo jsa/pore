@@ -48,8 +48,13 @@ TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, 'templates'),
 )
 
+SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_AGE = 365 * 24 * 60 * 60
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'gaelib.auth.middleware.AuthenticationMiddleware',
 )
 

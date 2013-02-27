@@ -98,10 +98,15 @@ def browse(request):
 @require_GET
 @render_to("photo.html")
 def single(request, entry_id):
+    entry = ndb.Key(GalleryEntry, int(entry_id)).get()
+    if not entry:
+        raise http.Http404, "Entry %r not found" % (entry_id,)
     ctx = {}
     ref = request.META.get('HTTP_REFERER')
     if ref:
         ctx['back'] = ref
     if 'ty' in request.GET:
         ctx['thankyou'] = True
+    if entry.key.id() in request.session.get('ups', []):
+        ctx['admin'] = True
     return ctx
