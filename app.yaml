@@ -16,6 +16,11 @@ handlers:
   upload: assets/.+/.+
   expiration: 28d
 
+- url: /fb-channel.html
+  static_files: assets/fb-channel.html
+  upload: assets/fb-channel.html
+  expiration: 7d
+
 - url: /.*
   script: main.app
 

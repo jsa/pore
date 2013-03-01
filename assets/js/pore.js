@@ -1376,7 +1376,9 @@ function initGMap() {
 		});
 
 	google.maps.event.addListener(gmap, 'center_changed', function () {
-		marker.setPosition(gmap.getCenter());
+		var center = gmap.getCenter();
+		$('[name="latlng"]').val(center.toUrlValue());
+		marker.setPosition(center);
 	});
 
 	// callbacks didn't seem to work on Firefox, so just adjusting map in case

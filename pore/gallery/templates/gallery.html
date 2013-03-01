@@ -5,7 +5,12 @@
 {% block head %}
 {{ block.super }}
 <style type="text/css">
-.map { width: 100%; }
+.map {
+  width: 100%;
+  padding: 10px 0 20px 0;
+  margin-bottom: 60px;
+}
+
 .map > * { float: right; }
 .map .btn { margin-right: 20px; }
 
@@ -15,12 +20,21 @@
   max-width: 400px;
   height: 300px;
   display: none;
+  margin-bottom: 60px;
 }
 
 .show-gmap .gmap-canvas {
   display: block;
 }
 </style>
+{% endblock %}
+
+{% block opengraph %}
+{{ block.super }}
+<meta property="og:title" content="Gallery" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="http://{{ settings.PRIMARY_HOST }}{{ MEDIA_URL }}img/pore-130.png" />
+<meta property="og:url" content="http://{{ settings.PRIMARY_HOST }}{% url gallery.browse %}" />
 {% endblock %}
 
 {% block body %}

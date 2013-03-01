@@ -24,8 +24,8 @@ def _apply_img_params(img, params):
 @cache_control(public=True, max_age=4 * 7 * 24 * 60 * 60)
 def photo(request, entry_id, photo_n, params):
     entry = ndb.Key(PhotoEntry, int(entry_id)).get()
-    if not entry or 'hidden' in entry.tags:
-        raise http.Http404, "Entry %r not found" % (entry_id,)
+    if not (entry and entry.is_public()):
+        raise http.Http404, "Photo %s-%s not found" % (entry_id, photo_n)
 
     blob_key = entry.photos[int(photo_n)]
     blob_info = BlobInfo.get(blob_key)
@@ -99,8 +99,8 @@ def browse(request):
 @render_to("photo.html")
 def single(request, entry_id):
     entry = ndb.Key(GalleryEntry, int(entry_id)).get()
-    if not entry:
-        raise http.Http404, "Entry %r not found" % (entry_id,)
+    if not (entry and entry.is_public()):
+        raise http.Http404, "Entry %s not found" % (entry_id,)
     ctx = {'entry': entry}
     if 'ty' in request.GET:
         ctx['thankyou'] = True
