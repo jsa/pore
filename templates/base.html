@@ -39,7 +39,7 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
 		<script type="text/javascript">
 		{# navigation handling #}
-		$('.navbar .nav a[href="' + window.location.pathname + '"]').parent().addClass('active');
+		$('.navbar .nav a[href="{{ request.path }}"]').parent().addClass('active');
 		window.pore = {'env': {'GOOGLE_API_KEY': {{ settings.GOOGLE_API_KEY|js }}}};
 		</script>
 		<script src="{{ MEDIA_URL }}js/pore{% if settings.IS_PROD %}.min{% endif %}.js" type="text/javascript"></script>
