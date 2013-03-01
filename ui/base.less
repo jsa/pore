@@ -44,19 +44,3 @@ input[type="text"] {
     box-shadow: none;
   }
 }
-
-.sprite-hover (@ix) {
-  background-position: (@ix * -32px) 0;
-  &:hover { background-position: (@ix * -32px) -32px; }
-}
-
-.share-sprite {
-  background: url("../img/share-sprite.png") no-repeat scroll 0 0 transparent;
-  width: 21px;
-  height: 21px;
-  display: inline-block;
-
-  &.fb { .sprite-hover(0); }
-  &.pin { .sprite-hover(1); }
-  &.gplus { .sprite-hover(2); }
-}

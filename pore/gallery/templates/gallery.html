@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load pore_tags %}
 
 {% block title %}Gallery | {{ block.super }}{% endblock %}
 
@@ -48,7 +48,7 @@
 				</a>
 			</div>
 			{% if entry.public_note %}
-			<blockquote class="pull-right">{{ entry.public_note|linebreaksbr }}</blockquote>
+			<blockquote class="pull-right">{{ entry.public_note|ellips:100|linebreaksbr }}</blockquote>
 			{% endif %}
 			{% if entry.datestamp %}
 			<p>{{ entry.datestamp }}</p>

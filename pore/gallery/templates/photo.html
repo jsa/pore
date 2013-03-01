@@ -12,6 +12,7 @@
 
 {% block head %}
 {{ block.super }}
+<link rel="canonical" href="{{ entry|og_url }}" />
 <style type="text/css">
 .field-label {
   display: block;
@@ -73,9 +74,21 @@
 				{% endif %}
 			</div>
 			<div class="row-fluid" style="margin-top: 30px;">
-				<a class="share-sprite fb" href="#"></a>
-				<a class="share-sprite pin" target="_blank" href="http://pinterest.com/pin/create/button/?url={{ entry|og_url|urlencode }}&media={{ entry|og_image|urlencode }}"></a>
-				{# <a href="#" class="share-sprite gplus"></a> #}
+				<div class="span1">
+					<div class="fb-like" data-href="{{ entry|og_url }}" data-send="false" data-layout="button_count" data-show-faces="false"></div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span1">
+					<a href="https://plus.google.com/share?url={{ entry|og_url|urlencode }}" class="gplus-share">
+						<img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+" />
+					</a>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span1">
+					<a data-pin-config="none" href="//pinterest.com/pin/create/button/?url={{ entry|og_url|urlencode }}&media={{ entry|og_image|urlencode }}&description={{ entry|og_title|urlencode }}" data-pin-do="buttonPin" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -89,38 +102,13 @@
 
 {% block js %}
 {{ block.super }}
-{% if entry.latlng %}
-<script src="https://maps.googleapis.com/maps/api/js?key={{ settings.GOOGLE_API_KEY }}&sensor=true" type="text/javascript"></script>
-{% endif %}
-<script type="text/javascript">
-window.fbAsyncInit = function() {
-	FB.init({
-		'appId': {{ settings.FB.APP_ID|js }},
-		'channelUrl': '{{ base_url }}/fb-channel.html',
-		'status': false,
-		'cookie': false,
-		'xfbml': false,
-		'logging': false
-	});
-
-	$('.share-sprite.fb').click(function() {
-		FB.ui({
-			'method': 'feed',
-			'link': {{ entry|og_url|js }},
-			'name': {{ entry|og_title|js }},{% if entry.public_note %}
-			'caption': {{ entry.public_note|js }},{% endif %}
-			'picture': {{ entry|og_image|js }}
-		});
+{% if entry.latlng %}<script src="https://maps.googleapis.com/maps/api/js?key={{ settings.GOOGLE_API_KEY }}&sensor=true" type="text/javascript"></script>
+{% endif %}<script type="text/javascript">
+$(function () {
+	$('.gplus-share').click(function () {
+		window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
 		return false;
 	});
-};
-
-$(function () {
-	var js = document.createElement('script');
-	js.async = true;
-	js.src = "//connect.facebook.net/en_US/all.js";
-	$('body').append(js);
-
 	{% if entry.latlng %}
 	var gmap = new google.maps.Map(document.getElementById('gmap-canvas'), {
 			'center': new google.maps.LatLng({{ entry.latlng }}),
@@ -136,4 +124,6 @@ $(function () {
 	{% endif %}
 });
 </script>
+<script src="//connect.facebook.net/en_US/all.js#xfbml=1" type="text/javascript" defer="defer"></script>
+<script src="//assets.pinterest.com/js/pinit.js" type="text/javascript" defer="defer"></script>
 {% endblock %}

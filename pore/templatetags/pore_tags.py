@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import logging
 from urlparse import urlparse
 
@@ -33,3 +34,16 @@ def domain(url):
             return ".".join(domain.split(".")[-2:])
         return domain
     return ""
+
+@register.filter
+def ellips(val, max_chars):
+    if len(val) <= max_chars:
+        return val
+    preview = ""
+    for word in val.split(" "):
+        if len(preview) + len(word) > max_chars:
+            break
+        preview += " " + word
+    if len(preview) <= max_chars:
+        return preview + u"…"
+    return val[:max_chars] + u"…"

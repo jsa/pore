@@ -4227,9 +4227,6 @@ input[type="text"] {
   clear: both;
   margin-bottom: 0px;
 }
-.thumbnails p:last-child {
-  margin-bottom: 10px;
-}
 .thumbnails blockquote,
 .thumbnails p {
   margin-right: 20px;
@@ -4238,28 +4235,4 @@ input[type="text"] {
 .thumbnails.nobo .thumbnail {
   border: none;
   box-shadow: none;
-}
-.share-sprite {
-  background: url("../img/share-sprite.png") no-repeat scroll 0 0 transparent;
-  width: 21px;
-  height: 21px;
-  display: inline-block;
-}
-.share-sprite.fb {
-  background-position: 0px 0;
-}
-.share-sprite.fb:hover {
-  background-position: 0px -32px;
-}
-.share-sprite.pin {
-  background-position: -32px 0;
-}
-.share-sprite.pin:hover {
-  background-position: -32px -32px;
-}
-.share-sprite.gplus {
-  background-position: -64px 0;
-}
-.share-sprite.gplus:hover {
-  background-position: -64px -32px;
 }

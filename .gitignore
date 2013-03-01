@@ -2,6 +2,7 @@
 
 .project
 .pydevproject
+.settings
 
 secrets.py
 testdata
